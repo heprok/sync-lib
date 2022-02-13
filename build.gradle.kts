@@ -58,19 +58,19 @@ publishing {
     }
 
     repositories {
-//        maven {
-//            name = "LocalMaven"
-//            url = uri("https://gitlab.com/api/v4/projects/29889174/packages/maven")
-//
-//            authentication {
-//                create<HttpHeaderAuthentication>("header")
-//            }
-//
-//            credentials(HttpHeaderCredentials::class) {
-//                name = "Deploy-Token"
-//                value = System.getenv("GITLAB_DEPLOY_TOKEN")
-//            }
-//        }
+        maven {
+            name = "GitLab"
+            url = uri("https://gitlab.com/api/v4/projects/33688770/packages/maven")
+
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
+
+            credentials(HttpHeaderCredentials::class) {
+                name = "Deploy-Token"
+                value = System.getenv("GITLAB_DEPLOY_TOKEN")
+            }
+        }
         mavenLocal()
     }
 }
