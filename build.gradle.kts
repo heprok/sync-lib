@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.briolink.lib"
-version = "0.1.0-SNAPSHOT"
+version = "0.1.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -56,7 +56,6 @@ publishing {
             from(components["java"])
         }
     }
-
     repositories {
         maven {
             name = "GitLab"

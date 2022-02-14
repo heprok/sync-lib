@@ -1,11 +1,19 @@
 package com.briolink.lib.sync.model
 
 import com.briolink.lib.sync.enumeration.PeriodSyncEnum
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.temporal.TemporalAdjusters
 
 data class PeriodDateTime(val startDateTime: LocalDateTime, val endDateTime: LocalDateTime = LocalDateTime.now()) {
+    val endInstant: Instant
+        get() = endDateTime.toInstant(ZoneOffset.UTC)
+
+    val startInstants: Instant
+        get() = startDateTime.toInstant(ZoneOffset.UTC)
+
     companion object {
         fun fromEnum(enum: PeriodSyncEnum): PeriodDateTime {
             val currentDateTime = LocalDate.now()

@@ -24,7 +24,7 @@ class SyncService(private val webClient: WebClient) {
 
     fun sendSyncErrorAtUpdater(syncError: SyncError): Boolean {
         val request = webClient.post()
-            .uri("/$syncUrl/error?syncServiceId=${syncError.syncServiceId}&errorText=${syncError.exception}")
+            .uri("/$syncUrl/error?syncId=${syncError.syncId}&updater=${syncError.updater.name}&service=${syncError.service.name}&errorText=${syncError.exception}")
             .retrieve()
             .bodyToMono(Void::class.java)
             .block()
