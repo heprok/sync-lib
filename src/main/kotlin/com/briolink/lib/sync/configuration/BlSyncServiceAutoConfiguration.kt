@@ -1,6 +1,6 @@
 package com.briolink.lib.sync.configuration
 
-import com.briolink.lib.sync.service.SyncService
+import com.briolink.lib.sync.SyncWebClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -25,5 +25,5 @@ class BlSyncServiceAutoConfiguration {
 
     @Bean
     @Primary
-    fun syncService() = SyncService(WebClient.create("$urlApi/api/v$apiVersion/"))
+    fun syncWebClient() = SyncWebClient(WebClient.create("$urlApi/api/v$apiVersion/"))
 }

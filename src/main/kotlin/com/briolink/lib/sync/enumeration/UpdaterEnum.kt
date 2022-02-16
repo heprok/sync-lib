@@ -1,9 +1,8 @@
 package com.briolink.lib.sync.enumeration
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.annotation.JsonValue
 
-enum class UpdaterEnum(@JsonValue val id: Int) {
+enum class UpdaterEnum(val id: Int) {
     @JsonProperty("1")
     User(1),
 

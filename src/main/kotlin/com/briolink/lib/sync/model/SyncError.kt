@@ -14,7 +14,7 @@ data class SyncError(
     @JsonProperty
     val exception: Exception,
     @JsonProperty
-    val indexRow: Long
+    val indexObjectSync: Long
 ) {
     override fun toString(): String {
         return exception.message + " " + exception.stackTraceToString()

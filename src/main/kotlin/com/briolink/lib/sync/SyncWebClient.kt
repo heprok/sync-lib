@@ -1,11 +1,11 @@
-package com.briolink.lib.sync.service
+package com.briolink.lib.sync
 
 import com.briolink.lib.sync.enumeration.ServiceEnum
 import com.briolink.lib.sync.enumeration.UpdaterEnum
 import com.briolink.lib.sync.model.SyncError
 import org.springframework.web.reactive.function.client.WebClient
 
-class SyncService(private val webClient: WebClient) {
+class SyncWebClient(private val webClient: WebClient) {
     private val syncUrl = "sync"
 
     /**
