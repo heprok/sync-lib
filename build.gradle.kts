@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.briolink.lib"
-version = "0.1.2-SNAPSHOT"
+version = "0.1.3-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     // Spring Boot
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
