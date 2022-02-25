@@ -12,6 +12,7 @@ interface ISyncLogRepository {
      * Method must be @query and @Modify
      * @query must be contain 'ON CONFLICT DO NOTHING'
      */
-    fun insert(syncId: Int, serviceId: Int, objectSync: Int): Int
-    fun update(completed: Instant?, withError: Boolean)
+    fun insert(syncId: Int, serviceId: Int, objectSync: Int)
+    fun update(syncId: Int, serviceId: Int, objectSync: Int, completed: Instant?, withError: Boolean)
+    fun update(syncId: Int, serviceId: Int, completed: Instant?, withError: Boolean)
 }
