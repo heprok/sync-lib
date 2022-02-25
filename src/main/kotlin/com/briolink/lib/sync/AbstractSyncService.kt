@@ -7,11 +7,10 @@ import com.briolink.lib.sync.exception.SyncAlreadyRunningException
 import com.briolink.lib.sync.model.SyncError
 import java.time.Instant
 
-abstract class AbstractSyncService(
-    private val syncWebClient: SyncWebClient,
-    private val syncLogRepository: ISyncLogRepository
-) {
+abstract class AbstractSyncService() {
     abstract val CURRENT_UPDATER: UpdaterEnum
+    abstract val syncLogRepository: ISyncLogRepository
+    abstract val syncWebClient: SyncWebClient
 
     /**
      * Start sync for service if sync at service not exist

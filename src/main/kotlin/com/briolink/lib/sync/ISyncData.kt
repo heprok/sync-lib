@@ -7,5 +7,5 @@ interface ISyncData<T> {
     val syncId: Int
     val indexObjectSync: Long
     val totalObjectSync: Long
-    val objectSync: T
+    val objectSync: T?
 }
