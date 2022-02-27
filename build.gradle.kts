@@ -13,11 +13,22 @@ plugins {
 }
 
 group = "com.briolink.lib"
-version = "0.1.3-SNAPSHOT"
+version = "0.1.4-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+//    mavenLocal()
+    maven {
+        url = uri("https://gitlab.com/api/v4/projects/29889174/packages/maven")
+        authentication {
+            create<HttpHeaderAuthentication>("header")
+        }
+        credentials(HttpHeaderCredentials::class) {
+            name = "Deploy-Token"
+            value = System.getenv("CI_DEPLOY_PASSWORD")
+        }
+    }
 }
 
 dependencies {
@@ -41,6 +52,8 @@ dependencies {
 
     // kotlin-logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+
+    implementation("com.briolink:event:${Versions.BRIOLINK_EVENT}")
 }
 
 java {
