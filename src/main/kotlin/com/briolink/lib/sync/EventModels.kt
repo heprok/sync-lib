@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 interface ISyncData<T> {
     val service: ServiceEnum
     val syncId: Int
-    val indexObjectSync: Long
-    val totalObjectSync: Long
+    val objectIndex: Long
+    val totalObjects: Long
     val objectSync: T?
 }
 
@@ -18,9 +18,9 @@ data class SyncData<T>(
     @JsonProperty
     override val syncId: Int,
     @JsonProperty
-    override val indexObjectSync: Long,
+    override val objectIndex: Long,
     @JsonProperty
-    override val totalObjectSync: Long,
+    override val totalObjects: Long,
     @JsonProperty
     override val objectSync: T?,
 ) : ISyncData<T>

@@ -16,7 +16,7 @@ abstract class SyncEventHandler<X : SyncEvent<*>>(
      * @return false if  object sync is null
      */
     fun objectSyncStarted(syncData: ISyncData<*>): Boolean {
-        if (syncData.indexObjectSync.toInt() == 1)
+        if (syncData.objectIndex.toInt() == 1)
             syncService.startSyncForService(syncData.syncId, syncData.service)
 
         if (syncData.objectSync == null) {
@@ -33,7 +33,7 @@ abstract class SyncEventHandler<X : SyncEvent<*>>(
                 updater = syncService.CURRENT_UPDATER,
                 syncId = syncData.syncId,
                 exception = ex,
-                indexObjectSync = syncData.indexObjectSync,
+                indexObjectSync = syncData.objectIndex,
             ),
         )
     }
@@ -44,7 +44,7 @@ abstract class SyncEventHandler<X : SyncEvent<*>>(
      * @return true if sync finished from objectSync
      */
     fun objectSyncCompleted(syncData: ISyncData<*>): Boolean {
-        if (syncData.indexObjectSync == syncData.totalObjectSync) {
+        if (syncData.objectIndex == syncData.totalObjects) {
             syncService.completedObjectSync(syncData.syncId, syncData.service, objectSync)
             return true
         }

@@ -9,7 +9,7 @@ import java.time.Instant
 
 abstract class BaseSyncService() {
     abstract val CURRENT_UPDATER: UpdaterEnum
-    abstract val syncLogRepository: ISyncLogRepository
+    abstract val syncLogRepository: ISyncLogRepository<*>
     abstract val syncWebClient: SyncWebClient
 
     /**
@@ -50,7 +50,10 @@ abstract class BaseSyncService() {
         syncLogRepository.update(syncLogId.syncId, syncLogId._service, syncLogId._objectSync, Instant.now(), false)
 
         if (!syncLogRepository.existsNotCompleted(syncLogId.syncId, syncLogId._service))
-            syncWebClient.sendCompletedSyncAtUpdater(updater = CURRENT_UPDATER, service = ServiceEnum.ofId(syncLogId._service))
+            syncWebClient.sendCompletedSyncAtUpdater(
+                updater = CURRENT_UPDATER,
+                service = ServiceEnum.ofId(syncLogId._service)
+            )
     }
 
     fun completedObjectSync(syncId: Int, service: ServiceEnum, objectSync: ObjectSyncEnum) =
