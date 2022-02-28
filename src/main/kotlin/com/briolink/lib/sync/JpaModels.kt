@@ -34,15 +34,16 @@ interface ISyncLogRepository<T : ISyncLogEntity> {
 
     @Modifying
     @Query("UPDATE #{#entityName} s SET s.completed = ?3, s.withError = ?4 WHERE s.id._service = ?2 AND s.id.syncId = ?1")
-    fun update(syncId: Int, serviceId: Int, objectSync: Int, completed: Instant?, withError: Boolean)
+    fun update(syncId: Int, serviceId: Int, completed: Instant?, withError: Boolean)
 
     @Modifying
     @Query("UPDATE #{#entityName} s SET s.completed = ?4, s.withError = ?5 WHERE s.id.syncId = ?1 AND s.id._objectSync = ?3 AND s.id._service = ?2")
-    fun update(syncId: Int, serviceId: Int, completed: Instant?, withError: Boolean)
+    fun update(syncId: Int, serviceId: Int, objectSync: Int, completed: Instant?, withError: Boolean)
 }
 
 interface BaseTimeMarkRepository<T> {
     fun findAll(pageable: Pageable): Page<T>
+    @Query("SELECT #{#entityName} s WHERE c.created BETWEEN ?1 AND ?2 OR c.changed BETWEEN ?1 AND ?2")
     fun findByPeriod(start: Instant, end: Instant, pageable: Pageable): Page<T>
 }
 

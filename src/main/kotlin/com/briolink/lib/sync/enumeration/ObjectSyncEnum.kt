@@ -11,7 +11,8 @@ enum class ObjectSyncEnum(val value: Int) {
     UserEducation(7),
     University(8),
     UserJobPosition(9),
-    Connection(10);
+    Connection(10),
+    ConnectionCompanyRole(11);
 
     companion object {
         private val map = values().associateBy(ObjectSyncEnum::value)
