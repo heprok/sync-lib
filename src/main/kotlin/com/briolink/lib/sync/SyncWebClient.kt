@@ -13,9 +13,9 @@ class SyncWebClient(private val webClient: WebClient) {
      * @param updater name updater who processed
      * @param service name service who sent sync event
      */
-    fun sendCompletedSyncAtUpdater(updater: UpdaterEnum, service: ServiceEnum): Boolean {
+    fun sendCompletedSyncAtUpdater(syncId: Int, updater: UpdaterEnum, service: ServiceEnum): Boolean {
         val request = webClient.post()
-            .uri("/$syncUrl/completed?updater=${updater.name}&service=${service.name}")
+            .uri("/$syncUrl/completed?syncId=$syncId&updater=${updater.name}&service=${service.name}")
             .retrieve()
             .bodyToMono(Void::class.java)
             .block()

@@ -42,7 +42,7 @@ abstract class BaseSyncService() {
     }
 
     fun sendSyncError(syncError: SyncError) {
-        syncLogRepository.update(syncError.syncId, syncError.service.id, Instant.now(), true)
+        syncLogRepository.update(syncError.syncId, syncError.service.id, Instant.now(), true, syncError.objectSync.value)
         syncWebClient.sendSyncErrorAtUpdater(syncError)
     }
 
@@ -51,6 +51,7 @@ abstract class BaseSyncService() {
 
         if (!syncLogRepository.existsNotCompleted(syncLogId.syncId, syncLogId._service))
             syncWebClient.sendCompletedSyncAtUpdater(
+                syncId = syncLogId.syncId,
                 updater = CURRENT_UPDATER,
                 service = ServiceEnum.ofId(syncLogId._service)
             )

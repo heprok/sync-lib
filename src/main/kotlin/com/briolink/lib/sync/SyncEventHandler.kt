@@ -29,6 +29,7 @@ abstract class SyncEventHandler<X : SyncEvent<*>>(
     fun sendError(syncData: ISyncData<*>, ex: Exception) {
         syncService.sendSyncError(
             syncError = SyncError(
+                objectSync = objectSync,
                 service = syncData.service,
                 updater = syncService.CURRENT_UPDATER,
                 syncId = syncData.syncId,
