@@ -1,5 +1,6 @@
 package com.briolink.lib.sync.enumeration
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 
 enum class ServiceEnum(val id: Int) {
@@ -17,6 +18,9 @@ enum class ServiceEnum(val id: Int) {
 
     companion object {
         private val map = values().associateBy(ServiceEnum::id)
+
+        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+        @JvmStatic
         fun ofId(id: Int): ServiceEnum = map[id]!!
     }
 }

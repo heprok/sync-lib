@@ -1,5 +1,7 @@
 package com.briolink.lib.sync.enumeration
 
+import com.fasterxml.jackson.annotation.JsonCreator
+
 enum class ObjectSyncEnum(val value: Int) {
     Company(0),
     CompanyIndustry(1),
@@ -16,6 +18,9 @@ enum class ObjectSyncEnum(val value: Int) {
 
     companion object {
         private val map = values().associateBy(ObjectSyncEnum::value)
+
+        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+        @JvmStatic
         fun fromInt(type: Int): ObjectSyncEnum = map[type]!!
     }
 }
