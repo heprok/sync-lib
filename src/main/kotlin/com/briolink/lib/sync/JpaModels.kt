@@ -1,5 +1,6 @@
 package com.briolink.lib.sync
 
+import org.hibernate.Hibernate
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.Modifying
@@ -58,4 +59,14 @@ class SyncLogId() : Serializable {
     var syncId: Int = -1
     var _objectSync: Int = -1
     var _service: Int = -1
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as SyncLogId
+
+        return syncId == other.syncId && _objectSync == other._objectSync && _service == other._service
+    }
+
+    override fun hashCode(): Int = 1756406093
 }
