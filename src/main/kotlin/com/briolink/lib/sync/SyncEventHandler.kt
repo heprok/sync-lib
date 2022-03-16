@@ -1,6 +1,6 @@
 package com.briolink.lib.sync
 
-import com.briolink.event.IEventHandler
+import com.briolink.lib.event.IEventHandler
 import com.briolink.lib.sync.enumeration.ObjectSyncEnum
 import com.briolink.lib.sync.model.SyncError
 

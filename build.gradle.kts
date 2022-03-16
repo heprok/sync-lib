@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.briolink.lib"
-version = "0.1.7-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -53,7 +53,7 @@ dependencies {
     // kotlin-logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
 
-    implementation("com.briolink:event:${Versions.BRIOLINK_EVENT}")
+    implementation("com.briolink.lib:event:${Versions.BRIOLINK_EVENT}")
 }
 
 java {

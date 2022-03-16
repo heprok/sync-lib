@@ -1,6 +1,6 @@
 package com.briolink.lib.sync
 
-import com.briolink.event.Event
+import com.briolink.lib.event.Event
 import com.briolink.lib.sync.enumeration.ServiceEnum
 import com.fasterxml.jackson.annotation.JsonProperty
 
