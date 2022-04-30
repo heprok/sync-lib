@@ -44,7 +44,8 @@ interface ISyncLogRepository<T : ISyncLogEntity> {
 
 interface BaseTimeMarkRepository<T> {
     fun findAll(pageable: Pageable): Page<T>
-    @Query("SELECT #{#entityName} s WHERE c.created BETWEEN ?1 AND ?2 OR c.changed BETWEEN ?1 AND ?2")
+
+    @Query("SELECT s FROM #{#entityName} s WHERE s.created BETWEEN ?1 AND ?2 OR s.changed BETWEEN ?1 AND ?2")
     fun findByPeriod(start: Instant, end: Instant, pageable: Pageable): Page<T>
 }
 
