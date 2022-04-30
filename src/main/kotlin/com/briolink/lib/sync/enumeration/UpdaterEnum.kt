@@ -17,7 +17,10 @@ enum class UpdaterEnum(val id: Int) {
     Connection(4),
 
     @JsonProperty("5")
-    Search(5);
+    Search(5),
+
+    @JsonProperty("6")
+    ExpVerification(6);
 
     companion object {
         private val map = values().associateBy(UpdaterEnum::id)

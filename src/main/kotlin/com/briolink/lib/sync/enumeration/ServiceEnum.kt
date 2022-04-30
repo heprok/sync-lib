@@ -14,7 +14,10 @@ enum class ServiceEnum(val id: Int) {
     Connection(4),
 
     @JsonProperty("2")
-    Company(2);
+    Company(2),
+
+    @JsonProperty("5")
+    ExpVerification(5);
 
     companion object {
         private val map = values().associateBy(ServiceEnum::id)

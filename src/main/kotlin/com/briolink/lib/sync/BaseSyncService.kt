@@ -26,6 +26,7 @@ abstract class BaseSyncService() {
             ServiceEnum.Company -> startSync(getListSyncLogIdAtCompany(syncId))
             ServiceEnum.CompanyService -> startSync(getListSyncLogIdAtCompanyService(syncId))
             ServiceEnum.Connection -> startSync(getListSyncLogIdAtConnection(syncId))
+            ServiceEnum.ExpVerification -> startSync(getListSyncLogIdAtExpVerification(syncId))
         }
         return true
     }
@@ -70,4 +71,5 @@ abstract class BaseSyncService() {
     abstract fun getListSyncLogIdAtUser(syncId: Int): List<SyncLogId>
     abstract fun getListSyncLogIdAtCompanyService(syncId: Int): List<SyncLogId>
     abstract fun getListSyncLogIdAtConnection(syncId: Int): List<SyncLogId>
+    abstract fun getListSyncLogIdAtExpVerification(syncId: Int): List<SyncLogId>
 }
