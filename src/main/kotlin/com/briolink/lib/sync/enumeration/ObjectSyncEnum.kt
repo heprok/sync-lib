@@ -20,16 +20,24 @@ enum class ObjectSyncEnum(val value: Int) {
     User(6),
     @JsonProperty("8")
     UserEducation(7),
+
     @JsonProperty("9")
     University(8),
+
     @JsonProperty("10")
     UserJobPosition(9),
+
     @JsonProperty("11")
     Connection(10),
+
     @JsonProperty("12")
     ConnectionCompanyRole(11),
+
     @JsonProperty("13")
-    ExpVerification(12);
+    ExpVerification(12),
+
+    @JsonProperty("14")
+    Project(13);
 
     companion object {
         private val map = values().associateBy(ObjectSyncEnum::value)
