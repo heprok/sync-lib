@@ -1,32 +1,37 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version Versions.SPRING_BOOT_VERSION
-    id("io.spring.dependency-management") version Versions.SPRING_DEPENDENCY_MANAGEMENT
+    id("org.springframework.boot") version Versions.Spring.BOOT
+    id("io.spring.dependency-management") version Versions.Spring.DEPENDENCY_MANAGEMENT
+    id("com.diffplug.spotless") version Versions.Plugin.SPOTLESS
 
-    kotlin("jvm") version Versions.KOTLIN_VERSION
-    kotlin("kapt") version Versions.KOTLIN_VERSION
-    kotlin("plugin.spring") version Versions.KOTLIN_VERSION
+    kotlin("jvm") version Versions.KOTLIN
+    kotlin("kapt") version Versions.KOTLIN
+    kotlin("plugin.spring") version Versions.KOTLIN
 
     `java-library`
     `maven-publish`
 }
 
-group = "com.briolink.lib"
-version = "0.2.2-SNAPSHOT"
+group = Base.GROUP
+version = Base.VERSION_NAME
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
 //    mavenLocal()
-    maven {
-        url = uri("https://gitlab.com/api/v4/projects/29889174/packages/maven")
-        authentication {
-            create<HttpHeaderAuthentication>("header")
-        }
-        credentials(HttpHeaderCredentials::class) {
-            name = "Deploy-Token"
-            value = System.getenv("CI_DEPLOY_PASSWORD")
+    setOf(
+        29889174, // BL Event
+    ).forEach {
+        maven {
+            url = uri("https://gitlab.com/api/v4/projects/$it/packages/maven")
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
+            credentials(HttpHeaderCredentials::class) {
+                name = "Deploy-Token"
+                value = System.getenv("CI_DEPLOY_PASSWORD")
+            }
         }
     }
 }
@@ -37,8 +42,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    kapt("org.springframework.boot:spring-boot-autoconfigure-processor:${Versions.SPRING_BOOT_VERSION}")
-    kapt("org.springframework.boot:spring-boot-configuration-processor:${Versions.SPRING_BOOT_VERSION}")
+    kapt("org.springframework.boot:spring-boot-autoconfigure-processor")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     // FasterXML
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
@@ -53,7 +58,7 @@ dependencies {
     // kotlin-logging
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
 
-    implementation("com.briolink.lib:event:${Versions.BRIOLINK_EVENT}")
+    implementation("com.briolink.lib:event:${Versions.Briolink.EVENT}")
 }
 
 java {
@@ -93,4 +98,53 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+
+        // https://github.com/diffplug/spotless/issues/142
+        ktlint(Versions.Plugin.KTLINT).userData(
+            mapOf(
+                "indent_style" to "space",
+                "max_line_length" to "140",
+                "indent_size" to "4",
+                "ij_kotlin_code_style_defaults" to "KOTLIN_OFFICIAL",
+                "ij_kotlin_line_comment_at_first_column" to "false",
+                "ij_kotlin_line_comment_add_space" to "true",
+                "ij_kotlin_name_count_to_use_star_import" to "2147483647",
+                "ij_kotlin_name_count_to_use_star_import_for_members" to "2147483647",
+                "ij_kotlin_keep_blank_lines_in_declarations" to "1",
+                "ij_kotlin_keep_blank_lines_in_code" to "1",
+                "ij_kotlin_keep_blank_lines_before_right_brace" to "0",
+                "ij_kotlin_align_multiline_parameters" to "false",
+                "ij_continuation_indent_size" to "4",
+                "insert_final_newline" to "true",
+            )
+        )
+
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+
+    kotlinGradle {
+        target("**/*.gradle.kts", "*.gradle.kts")
+
+        ktlint().userData(mapOf("indent_size" to "4", "continuation_indent_size" to "4"))
+
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn("spotlessApply")
+    dependsOn("spotlessCheck")
+}
+
+tasks.compileJava {
+    dependsOn(tasks.processResources)
 }

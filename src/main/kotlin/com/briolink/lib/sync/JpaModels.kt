@@ -34,11 +34,11 @@ interface ISyncLogRepository<T : ISyncLogEntity> {
     fun insert(syncId: Int, serviceId: Int, objectSync: Int)
 
     @Modifying
-    @Query("UPDATE #{#entityName} s SET s.completed = ?3, s.withError = ?4 WHERE s.id._objectSync = ?5 AND s.id._service = ?2 AND s.id.syncId = ?1")
+    @Query("UPDATE #{#entityName} s SET s.completed = ?3, s.withError = ?4 WHERE s.id._objectSync = ?5 AND s.id._service = ?2 AND s.id.syncId = ?1") // ktlint-disable max-line-length
     fun update(syncId: Int, serviceId: Int, completed: Instant?, withError: Boolean, objectSync: Int)
 
     @Modifying
-    @Query("UPDATE #{#entityName} s SET s.completed = ?4, s.withError = ?5 WHERE s.id.syncId = ?1 AND s.id._objectSync = ?3 AND s.id._service = ?2")
+    @Query("UPDATE #{#entityName} s SET s.completed = ?4, s.withError = ?5 WHERE s.id.syncId = ?1 AND s.id._objectSync = ?3 AND s.id._service = ?2") // ktlint-disable max-line-length
     fun update(syncId: Int, serviceId: Int, objectSync: Int, completed: Instant?, withError: Boolean)
 }
 

@@ -1,6 +1,18 @@
 object Versions {
-    const val KOTLIN_VERSION = "1.5.31"
-    const val SPRING_BOOT_VERSION = "2.5.5"
-    const val BRIOLINK_EVENT = "0.4.0-SNAPSHOT"
-    const val SPRING_DEPENDENCY_MANAGEMENT = "1.0.11.RELEASE"
+    const val JVM = "11"
+    const val KOTLIN = "1.6.21"
+
+    object Spring {
+        const val BOOT = "2.6.7"
+        const val DEPENDENCY_MANAGEMENT = "1.0.11.RELEASE"
+    }
+
+    object Briolink {
+        const val EVENT = "0.4.0-SNAPSHOT"
+    }
+
+    object Plugin {
+        const val SPOTLESS = "6.3.0"
+        const val KTLINT = "0.44.0"
+    }
 }
