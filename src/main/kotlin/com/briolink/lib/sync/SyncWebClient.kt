@@ -5,7 +5,7 @@ import com.briolink.lib.sync.enumeration.UpdaterEnum
 import com.briolink.lib.sync.model.SyncError
 import org.springframework.web.reactive.function.client.WebClient
 
-class SyncWebClient(private val webClient: WebClient) {
+open class SyncWebClient(private val webClient: WebClient) {
     private val syncUrl = "sync"
 
     /**
@@ -13,18 +13,31 @@ class SyncWebClient(private val webClient: WebClient) {
      * @param updater name updater who processed
      * @param service name service who sent sync event
      */
-    fun sendCompletedSyncAtUpdater(syncId: Int, updater: UpdaterEnum, service: ServiceEnum): Boolean {
-        val request = webClient.post()
-            .uri("/$syncUrl/completed?syncId=$syncId&updater=${updater.name}&service=${service.name}")
+    open fun sendCompletedSyncAtUpdater(syncId: Int, updater: UpdaterEnum, service: ServiceEnum): Boolean {
+        webClient.post()
+            .uri { builder ->
+                builder.path("/$syncUrl/completed")
+                    .queryParam("syncId", syncId)
+                    .queryParam("updater", updater.name)
+                    .queryParam("service", service.name)
+                    .build()
+            }
             .retrieve()
             .bodyToMono(Void::class.java)
             .block()
         return true
     }
 
-    fun sendSyncErrorAtUpdater(syncError: SyncError): Boolean {
-        val request = webClient.post()
-            .uri("/$syncUrl/error?syncId=${syncError.syncId}&updater=${syncError.updater.name}&service=${syncError.service.name}&errorText=${syncError.exception}")
+    open fun sendSyncErrorAtUpdater(syncError: SyncError): Boolean {
+        webClient.post()
+            .uri { builder ->
+                builder.path("/$syncUrl/error")
+                    .queryParam("syncId", syncError.syncId)
+                    .queryParam("updater", syncError.updater.name)
+                    .queryParam("service", syncError.service.name)
+                    .queryParam("errorText", syncError.exception.message)
+                    .build()
+            }
             .retrieve()
             .bodyToMono(Void::class.java)
             .block()
